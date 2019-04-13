@@ -1,7 +1,6 @@
 package runner
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -42,7 +41,7 @@ func watch() {
 	filepath.Walk(wd, func(path string, info os.FileInfo, err error) error {
 		if info.IsDir() && !isTmpDir(path) {
 			if len(path) > 1 && strings.HasPrefix(filepath.Base(path), ".") {
-				fmt.Println("skip: ", path)
+				watcherLog("skip: %s", path)
 				return nil
 			}
 			if isIgnoredFolder(path) {
