@@ -11,6 +11,10 @@ func build() (string, bool) {
 	buildLog("Building...")
 
 	cmd := exec.Command("go", "build", "-o", buildPath(), root())
+	
+	if raceDetector() {
+		cmd = exec.Command("go", "build", "-race", "-o", buildPath(), root())
+	}
 
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
